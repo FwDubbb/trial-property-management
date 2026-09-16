@@ -1,0 +1,24 @@
+{
+  "name": "property-management-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["client", "server"],
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c cyan,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "dev:client": "npm run dev -w client",
+    "dev:server": "npm run dev -w server",
+    "typecheck": "npm run typecheck --workspaces",
+    "build": "npm run build --workspaces",
+    "test": "npm run test -w server",
+    "test:e2e": "playwright test",
+    "db:check": "npm run db:check -w server",
+    "db:migrate": "npm run db:migrate -w server",
+    "test:integration": "npm run test:integration -w server"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "concurrently": "^9.2.0"
+  }
+}
