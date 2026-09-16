@@ -4,7 +4,7 @@ import type { PropertyInput, PropertyQuery } from '../validation/portfolio.js';
 const columns = `p.id, p.name, p.address, p.city, p.region, p.country, p.property_type AS "propertyType",
   p.notes, p.active, p.created_at AS "createdAt", p.updated_at AS "updatedAt",
   (SELECT count(*)::int FROM units u WHERE u.company_id = p.company_id AND u.property_id = p.id) AS "unitCount",
-  (SELECT count(*)::int FROM units u WHERE u.company_id = p.company_id AND u.property_id = p.id AND u.status = 'OCCUPIED') AS "occupiedCount"`;
+  (SELECT count(*)::int FROM unit_occupancy u WHERE u.company_id = p.company_id AND u.property_id = p.id AND u.occupancy_status = 'OCCUPIED') AS "occupiedCount"`;
 
 // Company identity is always passed from request.user, never from request bodies or query strings.
 export async function findProperty(database: Pool | PoolClient, companyId: string, id: string) {
@@ -98,9 +98,9 @@ export async function portfolioSummary(database: Pool, companyId: string) {
   );
   const units = await database.query(
     `SELECT count(*)::int AS total,
-    count(*) FILTER (WHERE u.status='OCCUPIED')::int AS occupied,
-    count(*) FILTER (WHERE u.status='VACANT')::int AS vacant
-    FROM units u JOIN properties p ON p.id=u.property_id AND p.company_id=u.company_id
+    count(*) FILTER (WHERE u.occupancy_status='OCCUPIED')::int AS occupied,
+    count(*) FILTER (WHERE u.occupancy_status='VACANT')::int AS vacant
+    FROM unit_occupancy u JOIN properties p ON p.id=u.property_id AND p.company_id=u.company_id
     WHERE u.company_id=$1 AND p.active=true`,
     [companyId],
   );

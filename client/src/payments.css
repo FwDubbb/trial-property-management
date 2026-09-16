@@ -1,0 +1,70 @@
+.payment-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.payment-tabs a {
+  padding: 12px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.payment-tabs .selected {
+  background: #eaf1e5;
+  color: #204b40;
+  font-weight: 600;
+}
+.payment-filters {
+  flex-wrap: wrap;
+}
+.rent-stats {
+  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+.rent-stats strong {
+  overflow-wrap: anywhere;
+}
+.payment-fields {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.payment-balance {
+  background: #f0f5ec;
+  padding: 18px;
+  border-radius: 6px;
+  display: grid;
+  gap: 8px;
+}
+.payment-balance span {
+  font-size: 13px;
+}
+.table-sub-link {
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 6px;
+}
+.records-table td small {
+  display: block;
+  color: #6b7b63;
+  margin-top: 5px;
+}
+.status-pill.paid,
+.status-pill.recorded {
+  background: #eaf3e5;
+  color: #305735;
+}
+.status-pill.partially_paid {
+  background: #fff1d1;
+  color: #785215;
+}
+.status-pill.unpaid {
+  background: #eef0f4;
+  color: #525e71;
+}
+.status-pill.overdue,
+.status-pill.voided {
+  background: #fbe9e5;
+  color: #983e30;
+}

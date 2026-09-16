@@ -3,6 +3,8 @@ import type { Pool } from 'pg';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { createPropertyController } from '../controllers/propertyController.js';
 import { createUnitController } from '../controllers/unitController.js';
+import { createTenancyController } from '../controllers/tenancyController.js';
+import { createPaymentController } from '../controllers/paymentController.js';
 
 export function createPortfolioRouter(database: Pool) {
   const router = Router();
@@ -20,5 +22,23 @@ export function createPortfolioRouter(database: Pool) {
   router.get('/units/:id', units.get);
   router.post('/units', units.create);
   router.put('/units/:id', units.update);
+  const tenancy = createTenancyController(database);
+  router.get('/tenants', tenancy.tenants);
+  router.post('/tenants', tenancy.createTenant);
+  router.get('/tenants/:id', tenancy.tenant);
+  router.put('/tenants/:id', tenancy.updateTenant);
+  router.get('/leases', tenancy.leases);
+  router.post('/leases', tenancy.create);
+  router.get('/leases/options', tenancy.options);
+  router.get('/leases/:id', tenancy.lease);
+  router.put('/leases/:id', tenancy.update);
+  router.post('/leases/:id/terminate', tenancy.terminate);
+  const payments = createPaymentController(database);
+  router.get('/payments', payments.list);
+  router.post('/payments', payments.create);
+  router.get('/payments/rent', payments.rent);
+  router.get('/payments/options', payments.options);
+  router.get('/payments/:id', payments.get);
+  router.post('/payments/:id/void', payments.voidRecord);
   return router;
 }

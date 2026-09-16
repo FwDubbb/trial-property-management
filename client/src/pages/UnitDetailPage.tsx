@@ -2,6 +2,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { ErrorState, LoadingState } from '../components/RecordStates';
 import { useApiQuery } from '../hooks/useApiQuery';
 import { amount, label, type Unit } from '../types/portfolio';
+import { LeaseHistory } from '../components/LeaseHistory';
 
 export function UnitDetailPage() {
   const { id } = useParams();
@@ -75,6 +76,21 @@ export function UnitDetailPage() {
           </div>
         </dl>
       </section>
+      {unit.activeLeaseId && (
+        <p className="info-notice">
+          Occupancy is controlled by an active lease.{' '}
+          <Link to={`/leases/${unit.activeLeaseId}`}>View current lease</Link>.
+        </p>
+      )}
+      <div className="section-heading">
+        <h2>Lease history</h2>
+        {unit.propertyActive && (
+          <Link className="primary-button" to={`/leases/new?unitId=${id}`}>
+            + Create lease
+          </Link>
+        )}
+      </div>
+      <LeaseHistory key={id} unitId={id} />
     </>
   );
 }

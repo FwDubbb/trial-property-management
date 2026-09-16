@@ -2,18 +2,23 @@
 
 A multi-tenant property management application for landlords and property managers, built incrementally with React, TypeScript, Express, and PostgreSQL.
 
-## Implemented: Phases 1–3
+## Implemented: Phases 1–5
 
 - Company registration and OWNER accounts.
 - Login, logout, persistent PostgreSQL sessions, and protected pages.
 - Properties: create, view, edit, search, filter, deactivate, and reactivate.
 - Units: create, view, edit, search, filter, and manage occupancy status.
+- Tenants: contact profiles, emergency contacts, search, current units, and lease history.
+- Leases: create/edit, date-based statuses, overlap prevention, and confirmed termination.
+- Automatic occupancy updates from active leases, including expiry and termination.
+- Rent payments: recording, searchable history, confirmed voiding, and tenant/lease payment history.
+- Monthly rent balances: expected, paid, outstanding, and overdue, with company-scoped filters.
 - An overview of active properties, total units, occupied units, and vacant units.
 - Backend validation, company-scoped queries, role middleware, responsive forms/tables, and automated tests.
 
-Tenants/leases, payment tracking, maintenance, expenses, and financial analytics remain in Phases 4–8. Team invitations and password recovery are not implemented yet.
+Maintenance, expenses, and financial dashboard analytics remain in Phases 6–8. Team invitations and password recovery are not implemented yet.
 
-Detailed file changes and manual tests: [Phase 2](docs/phase-2.md) · [Phase 3](docs/phase-3.md).
+Detailed file changes and manual tests: [Phase 2](docs/phase-2.md) · [Phase 3](docs/phase-3.md) · [Phase 4](docs/phase-4.md) · [Phase 5](docs/phase-5.md).
 
 ## Technology
 
@@ -112,6 +117,11 @@ The first command executes `SELECT 1`. The migration command creates:
 - `schema_migrations` — migration history and checksums.
 - `companies`, `users`, `sessions` — accounts and authentication.
 - `properties`, `units` — company portfolios.
+- `tenants`, `leases` — tenant profiles and agreements.
+- `rent_charges`, `payments` — recorded monthly rent amounts and payment history.
+- `lease_details`, `unit_occupancy` — views that derive lease status and occupancy from UTC dates.
+
+Phase 4 installs PostgreSQL's bundled `btree_gist` extension in `public` for overlap constraints. The migration account needs permission to install it, or an administrator can install it first. See the [Phase 4 database setup](docs/phase-4.md#database-requirement).
 
 Migrations run once, in order, within transactions. Rerunning the command is safe. Add a new migration rather than editing an applied one. Migrations use the same SQL files for source and compiled execution; retain `server/database/migrations` with the server build.
 
@@ -159,7 +169,7 @@ Passwords use salted scrypt hashes. Sessions use random 256-bit tokens; only tok
 
 Mutations require JSON plus `X-Requested-With: PropertyPlatform`; browser origins are checked. Authentication is rate-limited to 30 attempts per IP per 15 minutes. The limiter is in memory and will need a shared store for multiple production API instances.
 
-The application is still under development. Tenant/lease permissions, payment rules, team invitations, password recovery, and deployment hardening belong to subsequent work.
+The application is still under development. Team invitations, password recovery, and deployment hardening belong to subsequent work. Tenant, lease, and payment routes enforce OWNER/MANAGER access and company isolation. Payments only record rent received externally. Full monthly rent applies to partial months; see the [rent rules](docs/phase-5.md#rent-rules-used-in-this-mvp), including how recorded charges survive lease changes and termination.
 
 ## API and connectivity
 
@@ -173,7 +183,7 @@ Invoke-RestMethod http://127.0.0.1:5173/api/test
 
 Database health returns 503 when unavailable; PowerShell reports that as an error. Authenticated routes return 401 without a valid session. Cross-company record IDs return 404.
 
-See [authentication endpoints](docs/phase-2.md#api) and [property/unit endpoints](docs/phase-3.md#rest-api) for request details.
+See [authentication endpoints](docs/phase-2.md#api), [property/unit endpoints](docs/phase-3.md#rest-api), [tenant/lease endpoints](docs/phase-4.md#rest-api), and [payment endpoints](docs/phase-5.md#rest-api) for request details.
 
 ## Verification
 
@@ -217,8 +227,6 @@ Open http://127.0.0.1:4173. Vite preview is for local verification. Production h
 
 ## Remaining phases
 
-4. Tenants and leases, including automatic occupancy updates.
-5. Rent/payment tracking.
 6. Maintenance requests.
 7. Expenses and financial dashboard analytics.
 8. Expanded permissions, security review, responsive design, and testing.

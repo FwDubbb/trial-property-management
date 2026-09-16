@@ -34,6 +34,8 @@ export interface Unit {
   bathrooms: number;
   monthlyRent: string;
   status: UnitStatus;
+  activeLeaseId: string | null;
+  hasUpcomingLease: boolean;
   notes: string;
   createdAt: string;
   updatedAt: string;

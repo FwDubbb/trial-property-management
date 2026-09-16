@@ -26,6 +26,19 @@ export async function saveUnit(database: Pool, companyId: string, input: UnitInp
         'PROPERTY_INACTIVE',
         'Reactivate this property before adding or editing units.',
       );
+    const current = id ? await findUnit(client, companyId, id) : undefined;
+    if (current?.activeLeaseId && input.status !== 'OCCUPIED')
+      throw new ApiError(
+        409,
+        'LEASE_CONTROLS_OCCUPANCY',
+        'End the active lease before changing this unit’s occupancy status.',
+      );
+    if (current?.hasUpcomingLease && !current.activeLeaseId && input.status !== 'VACANT')
+      throw new ApiError(
+        409,
+        'LEASE_RESERVATION',
+        'This unit is reserved by an upcoming lease. Change the lease before changing its availability.',
+      );
     const values = [
       companyId,
       input.propertyId,
@@ -33,7 +46,7 @@ export async function saveUnit(database: Pool, companyId: string, input: UnitInp
       input.bedrooms,
       input.bathrooms,
       input.monthlyRent,
-      input.status,
+      current?.activeLeaseId ? 'VACANT' : input.status,
       input.notes,
     ];
     const result = id

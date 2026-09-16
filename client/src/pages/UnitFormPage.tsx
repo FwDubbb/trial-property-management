@@ -46,7 +46,8 @@ function UnitForm({ unit }: { unit?: Unit }) {
       bedrooms: Number(form.get('bedrooms')),
       bathrooms: Number(form.get('bathrooms')),
       monthlyRent: Number(form.get('monthlyRent')),
-      status: String(form.get('status')),
+      status:
+        unit?.activeLeaseId || unit?.hasUpcomingLease ? unit.status : String(form.get('status')),
       notes: String(form.get('notes')).trim(),
     };
     setBusy(true);
@@ -127,7 +128,11 @@ function UnitForm({ unit }: { unit?: Unit }) {
         </label>
         <label>
           Occupancy status *
-          <select name="status" defaultValue={unit?.status || 'VACANT'}>
+          <select
+            name="status"
+            defaultValue={unit?.status || 'VACANT'}
+            disabled={!!(unit?.activeLeaseId || unit?.hasUpcomingLease)}
+          >
             {unitStatuses.map((status) => (
               <option key={status} value={status}>
                 {label(status)}
@@ -146,8 +151,8 @@ function UnitForm({ unit }: { unit?: Unit }) {
         </label>
       </div>
       <p className="field-help">
-        Enter rent in the currency you use for this company. Unit status is managed manually until
-        lease management is added.
+        Enter rent in the currency you use for this company. Active and upcoming leases control this
+        unit’s occupancy and availability.
       </p>
       {error && (
         <p className="form-error" role="alert">

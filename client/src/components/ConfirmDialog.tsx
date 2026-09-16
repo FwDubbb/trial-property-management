@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 
 export function ConfirmDialog({
+  children,
   title,
   message,
   busy,
@@ -9,6 +10,7 @@ export function ConfirmDialog({
   onConfirm,
   onClose,
 }: {
+  children?: ReactNode;
   title: string;
   message: string;
   busy: boolean;
@@ -35,6 +37,7 @@ export function ConfirmDialog({
     >
       <h2 id="confirm-title">{title}</h2>
       <p>{message}</p>
+      {children}
       {error && (
         <p className="form-error" role="alert">
           {error}

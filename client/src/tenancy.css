@@ -1,0 +1,56 @@
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 22px;
+}
+.current-home {
+  background: #edf3e8;
+}
+.current-home p {
+  color: #667d5c;
+  font-size: 13px;
+}
+.profile-links {
+  display: grid;
+  gap: 12px;
+  margin-top: 25px;
+  font-size: 12px;
+}
+.profile-links a {
+  text-decoration: none;
+}
+.status-pill.upcoming {
+  background: #edf3fa;
+  color: #476b8a;
+}
+.status-pill.expired {
+  background: #f2f0ed;
+  color: #787168;
+}
+.status-pill.terminated {
+  background: #fff0ec;
+  color: #933b2e;
+}
+.date-cell {
+  white-space: nowrap;
+}
+.section-footnote {
+  font-size: 11px;
+  color: #6b7b63;
+  margin: 18px 0;
+}
+.lease-status-preview {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #edf3e8;
+  border-radius: 6px;
+  margin: 0 0 22px;
+  font-size: 12px;
+}
+@media (max-width: 1000px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}

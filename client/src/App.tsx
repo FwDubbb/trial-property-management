@@ -11,6 +11,15 @@ import { PropertyDetailPage } from './pages/PropertyDetailPage';
 import { UnitsPage } from './pages/UnitsPage';
 import { UnitFormPage } from './pages/UnitFormPage';
 import { UnitDetailPage } from './pages/UnitDetailPage';
+import { TenantsPage } from './pages/TenantsPage';
+import { TenantFormPage } from './pages/TenantFormPage';
+import { TenantDetailPage } from './pages/TenantDetailPage';
+import { LeasesPage } from './pages/LeasesPage';
+import { LeaseFormPage } from './pages/LeaseFormPage';
+import { LeaseDetailPage } from './pages/LeaseDetailPage';
+import { PaymentsPage } from './pages/PaymentsPage';
+import { PaymentFormPage } from './pages/PaymentFormPage';
+import { PaymentDetailPage } from './pages/PaymentDetailPage';
 
 function SessionGate() {
   const { loading, error, reload } = useAuth();
@@ -61,6 +70,18 @@ export function App() {
               <Route path="/units/new" element={<UnitFormPage key="new-unit" />} />
               <Route path="/units/:id" element={<UnitDetailPage />} />
               <Route path="/units/:id/edit" element={<UnitFormPage key="edit-unit" />} />
+              <Route path="/tenants" element={<TenantsPage />} />
+              <Route path="/tenants/new" element={<TenantFormPage key="new-tenant" />} />
+              <Route path="/tenants/:id" element={<TenantDetailPage />} />
+              <Route path="/tenants/:id/edit" element={<TenantFormPage key="edit-tenant" />} />
+              <Route path="/leases" element={<LeasesPage />} />
+              <Route path="/leases/new" element={<LeaseFormPage key="new-lease" />} />
+              <Route path="/leases/:id" element={<LeaseDetailPage />} />
+              <Route path="/leases/:id/edit" element={<LeaseFormPage key="edit-lease" />} />
+              <Route path="/payments" element={<PaymentsPage key="balances" />} />
+              <Route path="/payments/history" element={<PaymentsPage key="history" history />} />
+              <Route path="/payments/new" element={<PaymentFormPage />} />
+              <Route path="/payments/:id" element={<PaymentDetailPage />} />
             </Route>
             <Route
               path="*"
