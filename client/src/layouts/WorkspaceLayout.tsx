@@ -39,6 +39,7 @@ export function WorkspaceLayout() {
           <NavLink to="/leases">Leases</NavLink>
           <NavLink to="/payments">Payments</NavLink>
           <NavLink to="/maintenance">Maintenance</NavLink>
+          <NavLink to="/expenses">Expenses</NavLink>
           <NavLink to="/settings">Settings</NavLink>
           <NavLink to="/setup">Connection checks</NavLink>
         </nav>

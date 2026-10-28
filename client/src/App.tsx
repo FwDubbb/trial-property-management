@@ -23,6 +23,9 @@ import { PaymentDetailPage } from './pages/PaymentDetailPage';
 import { MaintenancePage } from './pages/MaintenancePage';
 import { MaintenanceFormPage } from './pages/MaintenanceFormPage';
 import { MaintenanceDetailPage } from './pages/MaintenanceDetailPage';
+import { ExpensesPage } from './pages/ExpensesPage';
+import { ExpenseFormPage } from './pages/ExpenseFormPage';
+import { ExpenseDetailPage } from './pages/ExpenseDetailPage';
 
 function SessionGate() {
   const { loading, error, reload } = useAuth();
@@ -85,6 +88,9 @@ export function App() {
               <Route path="/payments/history" element={<PaymentsPage key="history" history />} />
               <Route path="/payments/new" element={<PaymentFormPage />} />
               <Route path="/payments/:id" element={<PaymentDetailPage />} />
+              <Route path="/expenses" element={<ExpensesPage />} />
+              <Route path="/expenses/new" element={<ExpenseFormPage />} />
+              <Route path="/expenses/:id" element={<ExpenseDetailPage />} />
               <Route path="/maintenance" element={<MaintenancePage />} />
               <Route
                 path="/maintenance/new"

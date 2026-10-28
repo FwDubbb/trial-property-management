@@ -6,6 +6,7 @@ import { createUnitController } from '../controllers/unitController.js';
 import { createTenancyController } from '../controllers/tenancyController.js';
 import { createPaymentController } from '../controllers/paymentController.js';
 import { createMaintenanceController } from '../controllers/maintenanceController.js';
+import { createFinanceController } from '../controllers/financeController.js';
 
 export function createPortfolioRouter(database: Pool) {
   const router = Router();
@@ -48,5 +49,11 @@ export function createPortfolioRouter(database: Pool) {
   router.post('/maintenance', maintenance.create);
   router.put('/maintenance/:id', maintenance.update);
   router.patch('/maintenance/:id/status', maintenance.status);
+  const finance = createFinanceController(database);
+  router.get('/dashboard', finance.summary);
+  router.get('/expenses', finance.list);
+  router.get('/expenses/:id', finance.get);
+  router.post('/expenses', finance.create);
+  router.post('/expenses/:id/void', finance.voidRecord);
   return router;
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { MaintenanceList } from '../components/MaintenanceList';
+import { ExpenseList } from '../components/ExpenseList';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { EmptyState, ErrorState, LoadingState, Pagination } from '../components/RecordStates';
 import { UnitsTable } from '../components/UnitsTable';
@@ -153,6 +154,13 @@ export function PropertyDetailPage() {
         )}
       </div>
       <MaintenanceList key={`maintenance-${id}`} propertyId={id} />
+      <div className="section-heading">
+        <h2>Expenses</h2>
+        <Link className="primary-button" to={`/expenses/new?propertyId=${id}`}>
+          + Record expense
+        </Link>
+      </div>
+      <ExpenseList key={`expenses-${id}`} propertyId={id} />
       {confirm && (
         <ConfirmDialog
           title={`${property.active ? 'Deactivate' : 'Reactivate'} ${property.name}?`}
