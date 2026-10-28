@@ -1,6 +1,7 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { LeaseHistory } from '../components/LeaseHistory';
 import { PaymentHistory } from '../components/PaymentHistory';
+import { MaintenanceList } from '../components/MaintenanceList';
 import { RentBalances } from './PaymentsPage';
 import { ErrorState, LoadingState } from '../components/RecordStates';
 import { useApiQuery } from '../hooks/useApiQuery';
@@ -99,12 +100,18 @@ export function TenantDetailPage() {
         <h2>Payment history</h2>
       </div>
       <PaymentHistory key={`payments-${id}`} tenantId={id} />
-      <div className="next-grid">
-        <section className="guide-panel">
-          <h2>Maintenance history</h2>
-          <p className="intro">Maintenance tracking is not available yet.</p>
-        </section>
+      <div className="section-heading">
+        <h2>Maintenance history</h2>
+        {tenant.currentUnitId && (
+          <Link
+            className="primary-button"
+            to={`/maintenance/new?unitId=${tenant.currentUnitId}&tenantId=${id}`}
+          >
+            + Add request
+          </Link>
+        )}
       </div>
+      <MaintenanceList key={`maintenance-${id}`} tenantId={id} />
     </>
   );
 }

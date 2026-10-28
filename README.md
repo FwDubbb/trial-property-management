@@ -2,7 +2,7 @@
 
 A multi-tenant property management application for landlords and property managers, built incrementally with React, TypeScript, Express, and PostgreSQL.
 
-## Implemented: Phases 1–5
+## Implemented: Phases 1–6
 
 - Company registration and OWNER accounts.
 - Login, logout, persistent PostgreSQL sessions, and protected pages.
@@ -13,12 +13,13 @@ A multi-tenant property management application for landlords and property manage
 - Automatic occupancy updates from active leases, including expiry and termination.
 - Rent payments: recording, searchable history, confirmed voiding, and tenant/lease payment history.
 - Monthly rent balances: expected, paid, outstanding, and overdue, with company-scoped filters.
+- Maintenance: requests, priorities, assignments, status changes, completion dates, activity history, and property/unit/tenant history.
 - An overview of active properties, total units, occupied units, and vacant units.
 - Backend validation, company-scoped queries, role middleware, responsive forms/tables, and automated tests.
 
-Maintenance, expenses, and financial dashboard analytics remain in Phases 6–8. Team invitations and password recovery are not implemented yet.
+Expenses, financial dashboard analytics, and additional hardening remain in Phases 7–8. Team invitations and password recovery are not implemented yet.
 
-Detailed file changes and manual tests: [Phase 2](docs/phase-2.md) · [Phase 3](docs/phase-3.md) · [Phase 4](docs/phase-4.md) · [Phase 5](docs/phase-5.md).
+Detailed file changes and manual tests: [Phase 2](docs/phase-2.md) · [Phase 3](docs/phase-3.md) · [Phase 4](docs/phase-4.md) · [Phase 5](docs/phase-5.md) · [Phase 6](docs/phase-6.md).
 
 ## Technology
 
@@ -119,6 +120,7 @@ The first command executes `SELECT 1`. The migration command creates:
 - `properties`, `units` — company portfolios.
 - `tenants`, `leases` — tenant profiles and agreements.
 - `rent_charges`, `payments` — recorded monthly rent amounts and payment history.
+- `maintenance_requests`, `maintenance_events` — repair requests and activity history.
 - `lease_details`, `unit_occupancy` — views that derive lease status and occupancy from UTC dates.
 
 Phase 4 installs PostgreSQL's bundled `btree_gist` extension in `public` for overlap constraints. The migration account needs permission to install it, or an administrator can install it first. See the [Phase 4 database setup](docs/phase-4.md#database-requirement).
@@ -227,6 +229,5 @@ Open http://127.0.0.1:4173. Vite preview is for local verification. Production h
 
 ## Remaining phases
 
-6. Maintenance requests.
 7. Expenses and financial dashboard analytics.
 8. Expanded permissions, security review, responsive design, and testing.

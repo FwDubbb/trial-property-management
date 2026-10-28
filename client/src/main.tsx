@@ -5,6 +5,7 @@ import './styles.css';
 import './workspace.css';
 import './tenancy.css';
 import './payments.css';
+import './maintenance.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

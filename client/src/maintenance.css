@@ -1,0 +1,80 @@
+.maintenance-fields {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.maintenance-description {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+.maintenance-badges,
+.maintenance-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.maintenance-actions {
+  margin-top: 24px;
+}
+.priority-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.priority-low {
+  background: #edf2eb;
+  color: #566b4c;
+}
+.priority-medium {
+  background: #edf0f9;
+  color: #465c88;
+}
+.priority-high {
+  background: #fff1d1;
+  color: #785215;
+}
+.priority-emergency {
+  background: #fbe5e1;
+  color: #96382d;
+  font-weight: 600;
+}
+.maintenance-submitted {
+  background: #eef0f4;
+  color: #525e71;
+}
+.maintenance-assigned {
+  background: #edf0f9;
+  color: #465c88;
+}
+.maintenance-in_progress {
+  background: #fff1d1;
+  color: #785215;
+}
+.maintenance-completed {
+  background: #eaf3e5;
+  color: #305735;
+}
+.maintenance-cancelled {
+  background: #f3eae7;
+  color: #835247;
+}
+.maintenance-timeline {
+  margin: 0;
+  padding-left: 22px;
+}
+.maintenance-timeline li {
+  padding: 0 0 22px 8px;
+  overflow-wrap: anywhere;
+}
+.maintenance-timeline li:last-child {
+  padding-bottom: 0;
+}
+.maintenance-timeline p {
+  margin: 7px 0 0;
+  font-size: 13px;
+  color: #667660;
+}

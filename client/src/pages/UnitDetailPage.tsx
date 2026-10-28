@@ -3,6 +3,7 @@ import { ErrorState, LoadingState } from '../components/RecordStates';
 import { useApiQuery } from '../hooks/useApiQuery';
 import { amount, label, type Unit } from '../types/portfolio';
 import { LeaseHistory } from '../components/LeaseHistory';
+import { MaintenanceList } from '../components/MaintenanceList';
 
 export function UnitDetailPage() {
   const { id } = useParams();
@@ -91,6 +92,15 @@ export function UnitDetailPage() {
         )}
       </div>
       <LeaseHistory key={id} unitId={id} />
+      <div className="section-heading">
+        <h2>Maintenance history</h2>
+        {unit.propertyActive && (
+          <Link className="primary-button" to={`/maintenance/new?unitId=${id}`}>
+            + Add request
+          </Link>
+        )}
+      </div>
+      <MaintenanceList key={`maintenance-${id}`} unitId={id} />
     </>
   );
 }

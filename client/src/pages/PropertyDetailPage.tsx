@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { MaintenanceList } from '../components/MaintenanceList';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { EmptyState, ErrorState, LoadingState, Pagination } from '../components/RecordStates';
 import { UnitsTable } from '../components/UnitsTable';
@@ -143,6 +144,15 @@ export function PropertyDetailPage() {
           />
         )}
       </section>
+      <div className="section-heading">
+        <h2>Maintenance history</h2>
+        {property.active && (
+          <Link className="primary-button" to={`/maintenance/new?propertyId=${id}`}>
+            + Add request
+          </Link>
+        )}
+      </div>
+      <MaintenanceList key={`maintenance-${id}`} propertyId={id} />
       {confirm && (
         <ConfirmDialog
           title={`${property.active ? 'Deactivate' : 'Reactivate'} ${property.name}?`}
